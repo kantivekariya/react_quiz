@@ -8,7 +8,7 @@ export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.AUTH_ME_REQUEST:
       return {
-        ...state
+        ...state,
       };
     case types.AUTH_ME_SUCCESS:
       return {

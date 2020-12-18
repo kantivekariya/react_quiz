@@ -1,5 +1,5 @@
 import React from "react";
-const errorItemsNode = data => {
+const errorItemsNode = (data) => {
   if (data.errors) {
     const errorItems = data.errors.map((item, key) => {
       return (
@@ -22,8 +22,8 @@ export const errorFormater = (data, duration) => {
     duration: duration,
     style: {
       width: "28rem",
-      marginLeft: "-4rem"
-    }
+      marginLeft: "-4rem",
+    },
   };
   return returnData;
 };

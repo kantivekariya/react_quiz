@@ -25,9 +25,9 @@ export function userLogin(params) {
     dispatch({ type: types.AUTH_LOGIN_REQUEST });
     try {
       const res = await axios.post(`${config.BASE_URL}/auth/login`, params);
-      console.log("decoded", res)
+      console.log("decoded", res);
       const decoded = jwt_decode(res.token);
-      console.log("decoded", decoded)
+      console.log("decoded", decoded);
       saveTokens({ access_token: res.token, expires_in: decoded.exp });
       dispatch({ type: types.AUTH_LOGIN_SUCCESS, payload: decoded });
       return res;
@@ -58,7 +58,7 @@ export function getUserProfile() {
     dispatch({ type: types.AUTH_ME_REQUEST });
     try {
       const res = await axios.get(`${config.BASE_URL}/auth/me`);
-      console.log("me",res)
+      console.log("me", res);
       dispatch({ type: types.AUTH_ME_SUCCESS, payload: res });
       return res;
     } catch (error) {

@@ -10,7 +10,7 @@ export const loadState = () => {
   }
 };
 
-export const saveState = state => {
+export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("state", serializedState);
@@ -19,7 +19,7 @@ export const saveState = state => {
   }
 };
 
-export const getLocalState = key => {
+export const getLocalState = (key) => {
   try {
     const serializedState = localStorage.getItem(key);
     if (serializedState === null) {
@@ -47,17 +47,17 @@ export const loadUserFromLocal = () => {
     if (expires_in && access_token && new Date().getTime() < expires_at) {
       // authorize
       return {
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     } else {
       // unauth
       return {
-        isAuthenticated: false
+        isAuthenticated: false,
       };
     }
   } catch (err) {
     return {
-      isAuthenticated: false
+      isAuthenticated: false,
     };
   }
 };

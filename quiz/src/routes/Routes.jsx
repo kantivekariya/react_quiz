@@ -3,6 +3,7 @@ import Login from '../login/Login';
 import Registration from '../registration/Registration';
 import PageNotFound from '../pagenot-found/PageNotFound';
 import Dashboard from '../dashboard/Dashboard';
+import Quiz from '../quiz/Quiz';
 
 const CoreRoutes = [
   {
@@ -26,6 +27,13 @@ const CoreRoutes = [
     auth: true,
     title: 'Dashboard',
     component: Dashboard,
+  },
+  {
+    path: '/quiz',
+    exact: true,
+    auth: true,
+    title: 'Quiz',
+    component: Quiz,
   },
 ];
 

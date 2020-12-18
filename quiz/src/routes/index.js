@@ -47,10 +47,10 @@ const Routes = (props) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.Auth.isAuthenticated,
-    loadingBar: state.loadingBar
+    loadingBar: state.loadingBar,
   };
 };
 

@@ -38,6 +38,7 @@ userSchema.methods.generateJWT = function (remember) {
     {
       id: this._id,
       first_name: this.first_name,
+      last_name: this.last_name,
       email: this.email,
       mobile_number: this.mobile_number,
       gender: this.gender,

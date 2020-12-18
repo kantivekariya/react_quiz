@@ -8,7 +8,7 @@ const userController = {};
 userController.register = async (req, res) => {
   let newUser = await userModel.create({
     first_name: req.body.firstname,
-    last_name: req.body.firstname,
+    last_name: req.body.lastname,
     email: req.body.email,
     mobile_number: req.body.mobileno,
     password: req.body.password,
@@ -65,6 +65,19 @@ userController.login = async (req, res) => {
   }
 };
 
+userController.findOne = async (req, res) => {
+  try {
+    const email = req.params.email
+    const user = await userModel.aggregate({ email: email }, { thumbUrl });
+    if (!user) {
+      return res.status(httpStatus.NOT_FOUND).json({})
+    } else {
+      return res.status(httpStatus.OK).json(user)
+    }
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ "error": error })
+  }
+}
 
 userController.me = async (req, res) => {
   console.log('req.user', req.user);
