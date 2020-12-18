@@ -1,0 +1,39 @@
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 1.38rem + 2px);
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.188;
+  color: #67748b;
+  background-color: #fafbff;
+  background-clip: padding-box;
+  border: 1px solid #e9edf4;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.default-select {
+  .ant-select-selector {
+    border: 1px solid #e9edf4;;
+    border-radius: 0.25rem;
+    padding: 0.625rem 0.8rem !important;
+    min-height: 3rem;
+  }
+  
+  &.bg-gray {
+    .ant-select-selector {
+      background: #fcfdfe;
+    }
+  }
+  &.small-select {
+    .ant-select-selector {
+      height: 2rem;
+    }
+    .ant-select-selector__rendered {
+      line-height: 0.75rem;
+    }
+  }
+}
