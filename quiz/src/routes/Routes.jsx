@@ -1,9 +1,16 @@
 import { lazy } from 'react';
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
-import PageNotFound from '../pagenot-found/PageNotFound';
-import Dashboard from '../dashboard/Dashboard';
-import Quiz from '../quiz/Quiz';
+// import PageNotFound from '../pagenot-found/PageNotFound';
+// import Dashboard from '../dashboard/Dashboard';
+// import Quiz from '../quiz/Quiz';
+// import Result from '../result/Result';
+
+
+const Dashboard = lazy(()=> import('../dashboard/Dashboard'));
+const Quiz = lazy(()=> import('../quiz/Quiz'));
+const PageNotFound = lazy(()=> import('../pagenot-found/PageNotFound'));
+const Result = lazy(()=> import('../result/Result'));
 
 const CoreRoutes = [
   {
@@ -34,6 +41,13 @@ const CoreRoutes = [
     auth: true,
     title: 'Quiz',
     component: Quiz,
+  },
+  {
+    path: '/result',
+    exact: true,
+    auth: true,
+    title: 'Result',
+    component: Result,
   },
 ];
 

@@ -16,7 +16,7 @@ authRoutes.post("/register", asyncWrapper(userController.register));
 authRoutes.post("/login", asyncWrapper(userController.login));
 
 // 
-authRoutes.get("/:email",authRequired, asyncWrapper(userController.findOne));
+// authRoutes.get("/:email",authRequired, asyncWrapper(userController.findOne));
 
 // me
 authRoutes.get("/me", authRequired, asyncWrapper(userController.me));

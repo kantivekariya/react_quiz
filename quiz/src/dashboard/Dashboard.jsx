@@ -11,14 +11,18 @@ const Dashboard = (props) => {
     const userInfo = useSelector((state) => state.Auth.userInfo);
     const todayDate = new Date();
     useEffect(() => {
-        
+        if(moment(userInfo && userInfo.dob).format("MMM Do") === moment(todayDate).format("MMM Do")){
+            console.log("Happy")
+        }
     })
+
     const onLogout = () => {
         dispatch(userLogout()).then((res) => {
             console.log("process.env.PUBLIC_URL", process.env.PUBLIC_URL)
             window.location.href = process.env.PUBLIC_URL;
         });
     }
+
     return (
         <>
             <div className="auth d-md-flex align-items-center register-page">
@@ -29,7 +33,7 @@ const Dashboard = (props) => {
                                 <Avatar size={64} icon={<UserOutlined />} />
                             </div>
                             <h2 className="text-primary h4 text-center mb-5 mt-5">Wel Come {userInfo && userInfo.first_name + ' ' + userInfo.last_name}</h2>
-                            <h1 className="mt-5">{moment(userInfo && userInfo.dob).format("MMM Do YY") == moment(todayDate).format("MMM Do YY") ? 'Xongolab Wishing You a Happy Birthday' : ''}</h1>
+                            <h1 className="mt-5">{moment(userInfo && userInfo.dob).format("MMM Do") === moment(todayDate).format("MMM Do") ? 'Xongolab Wishing You a Happy Birthday' : ''}</h1>
                             <Button className="btn btn-primary mt-5" onClick={() => props.history.push('/quiz')}>Start Quiz</Button>
                         </div>
                     </div>

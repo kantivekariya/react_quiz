@@ -7,6 +7,7 @@ import { getAllQuestion } from '../redux/actions/quiz/quiz.action';
 const Quiz = (props) => {
     const [form] = Form.useForm();
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [questionNo, setQuestionNo] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const question = useSelector((state) => state.questionReducer.question);
@@ -16,15 +17,30 @@ const Quiz = (props) => {
         dispatch(getAllQuestion()).then((res) => {
             console.log("Get All", res)
         });
+        // const shuffledAnswerOptions = question.data.map((question) => this.shuffleArray(question.answers));
     }, [])
 
+
+
+    const uniqueRandoms = (qty, min, max) => {
+        var rnd, arr = [];
+        do {
+            do { rnd = Math.floor(Math.random() * max) + min }
+            while (arr.includes(rnd))
+            arr.push(rnd);
+        } while (arr.length < qty)
+        return arr;
+    }
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
         if (values.ans) {
             const nextQuestion = currentQuestion + 1;
-            if (nextQuestion < question.data.length) {
-                setCurrentQuestion(nextQuestion);
+            const random = Math.floor(Math.random() * (question && question.data).length);
+            console.log(random, question && question.data[random]);
+            if (nextQuestion < question && question.data[random]) {
+                setQuestionNo()
+                setCurrentQuestion(random);
             } else {
                 setShowScore(true);
             }
@@ -33,16 +49,13 @@ const Quiz = (props) => {
     };
 
     const NextQuestion = (e) => {
-            // const nextQuestion = currentQuestion + 1;
-            // if (nextQuestion < question.data.length) {
-            //     setCurrentQuestion(nextQuestion);
-            // } else {
-            //     setShowScore(true);
-            // }
+
     }
 
     const onReset = () => {
+
         form.resetFields();
+
     }
 
     return (
@@ -53,7 +66,7 @@ const Quiz = (props) => {
                         <div className="col-md-10 col-lg-10 col-xl-10 auth-right bg-white">
                             <Form form={form} onFinish={onFinish}>
                                 <div className="text-right">
-                                    <Timer duration={10} timeoutFn={NextQuestion} />
+                                    {/* <Timer duration={10} timeoutFn={NextQuestion} /> */}
                                 </div>
                                 <div>
                                     {showScore ? (
