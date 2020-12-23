@@ -5,11 +5,10 @@ const resultController = {};
 
 
 resultController.result = async (req, res) => {
+  console.log(req.body)
   try {
     let result = await resultModel.create({
-      question: req.body.question,
-      wrongans: req.body.wrongans,
-      correct: req.body.correct
+      quiz: req.body.quiz
     });
     return res.status(httpStatus.CREATED).json(result)
   } catch (err) {

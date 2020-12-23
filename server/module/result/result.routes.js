@@ -10,7 +10,7 @@ resultRoutes.get("/", function (req, res, next) {
 });
 
 // Add Question
-resultRoutes.post('/result', authRequired, asyncWrapper(resultController.result));
+resultRoutes.post('/result', asyncWrapper(resultController.result));
 
 
 

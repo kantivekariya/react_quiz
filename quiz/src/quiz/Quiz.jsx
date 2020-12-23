@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Radio, Form } from 'antd';
 import Timer from '../timer/Timer';
-import { getAllQuestion } from '../redux/actions/quiz/quiz.action';
+import { createQuiz, getAllQuestion } from '../redux/actions/quiz/quiz.action';
+var arr = [];
 
 const Quiz = (props) => {
     const [form] = Form.useForm();
+    const [result, setResult] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionNo, setQuestionNo] = useState(0);
     const [showScore, setShowScore] = useState(false);
-    const [score, setScore] = useState(0);
+    let [score, setScore] = useState(0);
     const question = useSelector((state) => state.questionReducer.question);
     const dispatch = useDispatch();
 
@@ -32,30 +34,58 @@ const Quiz = (props) => {
         return arr;
     }
 
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
-        if (values.ans) {
-            const nextQuestion = currentQuestion + 1;
-            const random = Math.floor(Math.random() * (question && question.data).length);
-            console.log(random, question && question.data[random]);
-            if (nextQuestion < question && question.data[random]) {
-                setQuestionNo()
-                setCurrentQuestion(random);
+    const onFinish = async values => {
+        console.log('Received values of form: ', values.ans);
+        const nextQuestion = currentQuestion + 1;
+        console.log(currentQuestion)
+        if (values.ans && question.data && question.data[currentQuestion]) {
+            console.log(question.data && question.data[currentQuestion].question)
+            console.log('A', question.data && question.data[currentQuestion].correct)
+            let correct = question.data && question.data[currentQuestion].answer.filter((ans) => ans.id === (question.data && question.data[currentQuestion].correct));
+            console.log("Correct Ans", correct)
+            const data = question.data && question.data[currentQuestion].answer.filter((ans) => ans.id === values.ans);
+            console.log("Your Ans", data)
+            if (correct[0].id === data[0].id) {
+                console.log('work')
+                score = score + 10
+                setScore(score)
+            }
+            const d = {
+                question: question.data && question.data[currentQuestion].question,
+                correct: correct[0].text,
+                answer: data[0].text,
+                score: score
+            }
+            arr.push(d)
+            dispatch(createQuiz(d)).then(() => { })
+            console.log("Array", arr)
+            // question.data && question.data[currentQuestion].answer.map((value, index) => {
+            //     if (question.data && question.data.correct == values.ans) {
+            //         console.log("True", value.text)
+            //         setScore(10 + 10)
+            //         console.log(10 + 10)
+            //     } else if (value.id === values.ans) {
+            //         console.log("Your Ans", value.text)
+            //     }
+            // })
+            if (nextQuestion < 10) {
+                setCurrentQuestion(nextQuestion);
+                form.resetFields();
+
             } else {
                 setShowScore(true);
             }
-            form.resetFields();
         }
+
     };
 
-    const NextQuestion = (e) => {
-
+    const finishQuiz = () => {
+        console.log("Final Array", arr)
+        
     }
 
     const onReset = () => {
-
         form.resetFields();
-
     }
 
     return (
@@ -71,7 +101,7 @@ const Quiz = (props) => {
                                 <div>
                                     {showScore ? (
                                         <div className=''>
-                                            You scored {score} out of {question.data.length}
+                                            You scored {score} out of 100
                                         </div>
                                     ) : (
                                             <>
@@ -87,13 +117,14 @@ const Quiz = (props) => {
                                                         </Radio.Group>
                                                     </Form.Item>
                                                 </div>
+                                                <div>
+                                                    <Button htmlType="submit" className="mr-3">Submit</Button>
+                                                    <Button onClick={onReset}>Reset</Button>
+                                                </div>
                                             </>
                                         )}
                                 </div>
-                                <div>
-                                    <Button htmlType="submit" className="mr-3">Submit</Button>
-                                    <Button onClick={onReset}>Reset</Button>
-                                </div>
+                                <Button onClick={() => finishQuiz()}>Finish</Button>
                             </Form>
                         </div>
                     </div>

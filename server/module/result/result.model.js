@@ -6,9 +6,12 @@ const schema = mongoose.Schema;
 
 const resultSchema = new schema(
   {
-    question: String,
-    wrongans: String,
-    correct: String
+    quiz: [{
+      question: String,
+      answer: String,
+      correct: String,
+      score: String
+    }]
   }
 );
 
